@@ -3,7 +3,7 @@ from selenium.webdriver.common.keys import Keys
 import time
 
 # Configuração do driver do Selenium
-driver = webdriver.Chrome()
+driver_path = "/usr/bin/chromedriver"
 
 # URL da página de login do Instagram
 url = "https://www.instagram.com/accounts/login/"
@@ -33,6 +33,15 @@ def parar_de_seguir_perfil(perfil):
     confirmar_button = driver.find_element_by_xpath("//button[contains(text(), 'Deixar de seguir')]")
     confirmar_button.click()
     time.sleep(5)
+
+# Configuração do driver do Chrome
+options = webdriver.ChromeOptions()
+options.add_argument("--no-sandbox")
+options.add_argument("--disable-dev-shm-usage")
+options.add_argument("--headless")  # Executar em modo headless, sem exibição do navegador
+
+# Inicializar o driver do Chrome
+driver = webdriver.Chrome(driver_path, options=options)
 
 # Fazer login
 driver.get(url)
